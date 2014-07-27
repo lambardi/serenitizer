@@ -18,5 +18,75 @@ describe 'translation cases' do
     snippet.set_text("What is that thing?")
     snippet.translated.should == "What is that bunger?"
   end
+
+  describe 'default irregular verbs to third person singular' do
+    it 'should use was instead of were' do
+      snippet = Snippet.new
+      snippet.set_text("We were going there.")
+      snippet.translated.should == "We was goin' there."
+    end
+
+    it 'should use got instead of gets' do
+      snippet = Snippet.new
+      snippet.set_text("He gets none of that.")
+      snippet.translated.should == "He got none of that."
+    end
+
+    it 'should use has got instead of got' do
+      snippet = Snippet.new
+      snippet.set_text("That has to be the problem")
+      snippet.translated.should == "That has gotta be the problem"
+    end
+  end
+
+  describe 'use malformed verbs' do
+    it 'should use growed up real good' do
+      snippet = Snippet.new
+      snippet.set_text("He grew up very well.")
+      snippet.translated.should == "He growed up real good."
+    end
+
+    it 'should use come instead of came' do
+      snippet = Snippet.new
+      snippet.set_text("He came by here last night.")
+      snippet.translated.should == "He come by here last night."
+    end
+
+    it 'should use seen it and my own' do
+      snippet = Snippet.new
+      snippet.set_text("I saw it with my eyes.")
+      snippet.translated.should == "I seen it with my own eyes."
+    end
+
+    it 'should use he done' do
+      snippet = Snippet.new
+      snippet.set_text("He has run off again.")
+      snippet.translated.should == "He done run off again."
+    end
+
+    it 'should use gone' do
+      snippet = Snippet.new
+      snippet.set_text("This is going to hurt.")
+      snippet.translated.should == "This gone hurt."
+    end
+  end
+
+  describe 'simple single word replacements' do
+    it 'should use goram' do
+      snippet = Snippet.new
+      snippet.set_text("God damn, that is hot!")
+      snippet.translated.should == "Goram, that is hot!"
+    end
+    it 'should use confound' do
+      snippet = Snippet.new
+      snippet.set_text("I am confused")
+      snippet.translated.should == "I'm confounded"
+    end
+    it 'should use chow' do
+      snippet = Snippet.new
+      snippet.set_text("If you're hungry, there's food in the kitchen")
+      snippet.translated.should == "If you're hungry, there's chow in the kitchen"
+    end
+  end
 end
 
