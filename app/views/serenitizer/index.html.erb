@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Serentizer</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= simple_form_for @snippet, :url => 'serenitizer' do |f| %>
+  <%= f.input :text, :label => false %>
+  <%= f.button :submit, 'To the Verse!' %>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>
