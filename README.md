@@ -11,3 +11,4 @@ To run tests use:
 bundle exec rspec
 ```
 
+The app should be running [here](http://quiet-tundra-6537.herokuapp.com/serenitizer)
