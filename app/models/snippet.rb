@@ -119,7 +119,7 @@ class Snippet
   end
 
   def replace_has_state_with_done(text)
-    states = ["been", "gotten", "happened", "occurred"]
+    states = ["been", "gotten", "happened", "occurred", "gone"]
 
     states.each do |state|
       regex = Regexp.new("has #{state}" )

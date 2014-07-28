@@ -54,8 +54,8 @@ describe 'translation cases' do
 
     it 'should use done instead of has and then a state of being' do
       snippet = Snippet.new
-      snippet.set_text("This has been said many times. This has been fun.")
-      snippet.translated.should == "This done been said many times. This done been fun."
+      snippet.set_text("This has been said many times. This has been fun. He does not know what has happened here.")
+      snippet.translated.should == "This done been said many times. This done been fun. He don't know what done happened here."
     end
 
     it 'should use gone' do
@@ -98,10 +98,16 @@ describe 'translation cases' do
   end
 
   describe 'simple phrase replacement' do
-    it 'should i was never with was i ever not' do
+    it 'should replace i was never with was i ever not' do
       snippet = Snippet.new
       snippet.set_text("I was not asking how the captain feels.")
       snippet.translated.should == "Was I ever not askin how the captain feels."
+    end
+
+    it 'should replace add my own self to stuff' do
+      snippet = Snippet.new
+      snippet.set_text("I don't know. I haven't done that before. I'm not sure what to do.")
+      snippet.translated.should == "I don't know, my own self. I haven't done that before, my own self. I'm not sure what to do, my own self."
     end
   end
 end
