@@ -25,54 +25,46 @@ class Snippet
   end
 
   def translated
-    to_be_translated = self.text.downcase
+    text = self.text.downcase
 
-    to_be_translated = simple_single_words(to_be_translated)
+    text = replace_simple_words(text)
 
     # use contractions
-    to_be_translated = to_be_translated.gsub(/i\sam/, "i'm")
+    text = text.gsub(/i\sam/, "i'm")
 
     # replace thing with bunger
-    to_be_translated = to_be_translated.gsub(/thing/, "bunger")
+    text = text.gsub(/thing/, "bunger")
 
     # use the word ain't
-    to_be_translated = to_be_translated.gsub(/are[']*n[']*t/, "ain't")
-    to_be_translated = to_be_translated.gsub(/are\snot/, "ain't")
-    to_be_translated = to_be_translated.gsub(/are\syou\snot/, "ain't you")
-
+    text = text.gsub(/are[']*n[']*t/, "ain't")
+    text = text.gsub(/are\snot/, "ain't")
+    text = text.gsub(/are\syou\snot/, "ain't you")
 
     # use don't instead of doesn't or does not
-    to_be_translated = to_be_translated.gsub(/does[']*n[']*t/, "don't")
-    to_be_translated = to_be_translated.gsub(/does\snot/, "don't")
+    text = text.gsub(/does[']*n[']*t/, "don't")
+    text = text.gsub(/does\snot/, "don't")
 
-    # what the hell -> what in the sphincter of hell
-    to_be_translated = to_be_translated.gsub(/what\sin\sthe\shell/, "what in the sphincter of hell")
+    text = replace_simple_phrases(text)
 
     # no ly on advectives
-    to_be_translated = to_be_translated.gsub(/(on){0}|(real){0}ly/, "")
+    text = text.gsub(/(on){0}|(real){0}ly/, "")
 
     # irregular verbs default to third person singular
-    to_be_translated = to_be_translated.gsub(/were/, "was")
+    text = text.gsub(/were/, "was")
     # cleanup 1
-    to_be_translated = to_be_translated.gsub(/has\sto\sbe/, "h1as gotta be")
-    to_be_translated = to_be_translated.gsub(/gets/, "got")
+    text = text.gsub(/has\sto\sbe/, "h1as gotta be")
+    text = text.gsub(/gets/, "got")
 
     # malformed verbs
-    to_be_translated = to_be_translated.gsub(/grew/, "growed")
-    to_be_translated = to_be_translated.gsub(/very well/, "real good")
-    to_be_translated = to_be_translated.gsub(/came/, "come")
-    to_be_translated = to_be_translated.gsub(/saw/, "seen")
-    to_be_translated = to_be_translated.gsub(/has/, "done")
-    to_be_translated = to_be_translated.gsub(/my/, "my own")
-    to_be_translated = to_be_translated.gsub(/is\sgoing\sto/, "gone")
+    text = malform_verbs(text)
 
     # drop the 'g' on gerunds
-    to_be_translated = to_be_translated.gsub(/ing\s/, "in'")
+    text = text.gsub(/(ing)(\s|$)/, 'in ')
 
     # cleanup 1
-    to_be_translated = to_be_translated.gsub(/h1as/, "has")
+    text = text.gsub(/h1as/, "has")
 
-    pretty_print(to_be_translated)
+    pretty_print(text)
   end
 
   private # PRIVATE BELOW THIS LINE
@@ -84,7 +76,7 @@ class Snippet
     text
   end
 
-  def simple_single_words(text)
+  def replace_simple_words(text)
     # goram
     text = text.gsub(/god\sdam[mMnN]*/, "goram")
 
@@ -94,6 +86,30 @@ class Snippet
 
     # chow
     text = text.gsub(/food/, "chow")
+
+    # ruttin
+    text = text.gsub(/fucking/, "ruttin")
+    text = text.gsub(/fuckin|fukkin/, "ruttin")
+
+    text
+  end
+
+  def replace_simple_phrases(text)
+    # what the hell -> what in the sphincter of hell
+    text = text.gsub(/what\sthe\shell/, "what in the sphincter of hell")
+    text = text.gsub(/what\sin\sthe\shell/, "what in the sphincter of hell")
+
+    text
+  end
+
+  def malform_verbs(text)
+    text = text.gsub(/grew/, "growed")
+    text = text.gsub(/very well/, "real good")
+    text = text.gsub(/came/, "come")
+    text = text.gsub(/saw/, "seen")
+    text = text.gsub(/has/, "done")
+    text = text.gsub(/my/, "my own")
+    text = text.gsub(/is\sgoing\sto/, "gone")
 
     text
   end

@@ -4,7 +4,7 @@ describe 'translation cases' do
   it 'should not matter if input is upper or lower case' do
     snippet = Snippet.new
     snippet.set_text("God Damn it! This THING DoES'Nt work. Are you NOT gOINg to FiX it?")
-    snippet.translated.should == "Goram it! This bunger don't work. Ain't you goin' to fix it?"
+    snippet.translated.should == "Goram it! This bunger don't work. Ain't you goin to fix it?"
   end
 
   it 'should capitalize the first letter of a new sentence' do
@@ -23,7 +23,7 @@ describe 'translation cases' do
     it 'should use was instead of were' do
       snippet = Snippet.new
       snippet.set_text("We were going there.")
-      snippet.translated.should == "We was goin' there."
+      snippet.translated.should == "We was goin there."
     end
 
     it 'should use got instead of gets' do
@@ -77,15 +77,23 @@ describe 'translation cases' do
       snippet.set_text("God damn, that is hot!")
       snippet.translated.should == "Goram, that is hot!"
     end
+
     it 'should use confound' do
       snippet = Snippet.new
       snippet.set_text("I am confused")
       snippet.translated.should == "I'm confounded"
     end
+
     it 'should use chow' do
       snippet = Snippet.new
       snippet.set_text("If you're hungry, there's food in the kitchen")
       snippet.translated.should == "If you're hungry, there's chow in the kitchen"
+    end
+
+    it 'should use ruttin' do
+      snippet = Snippet.new
+      snippet.set_text("This is fucking stupid. I fuckin hate this fukkin idea.")
+      snippet.translated.should == "This is ruttin stupid. I ruttin hate this ruttin idea."
     end
   end
 end
