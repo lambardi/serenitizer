@@ -13,12 +13,6 @@ describe 'translation cases' do
     snippet.translated.should == "Here is a sentence. Here is another one. What if we get crazy with punctuation? Calm down! Fine."
   end
 
-  it 'should replace thing with bunger' do
-    snippet = Snippet.new
-    snippet.set_text("What is that thing?")
-    snippet.translated.should == "What is that bunger?"
-  end
-
   describe 'default irregular verbs to third person singular' do
     it 'should use was instead of were' do
       snippet = Snippet.new
@@ -58,10 +52,10 @@ describe 'translation cases' do
       snippet.translated.should == "I seen it with my own eyes."
     end
 
-    it 'should use he done' do
+    it 'should use done instead of has and then a state of being' do
       snippet = Snippet.new
-      snippet.set_text("He has run off again.")
-      snippet.translated.should == "He done run off again."
+      snippet.set_text("This has been said many times. This has been fun.")
+      snippet.translated.should == "This done been said many times. This done been fun."
     end
 
     it 'should use gone' do
@@ -94,6 +88,20 @@ describe 'translation cases' do
       snippet = Snippet.new
       snippet.set_text("This is fucking stupid. I fuckin hate this fukkin idea.")
       snippet.translated.should == "This is ruttin stupid. I ruttin hate this ruttin idea."
+    end
+
+    it 'should replace thing with bunger' do
+      snippet = Snippet.new
+      snippet.set_text("What is that thing?")
+      snippet.translated.should == "What is that bunger?"
+    end
+  end
+
+  describe 'simple phrase replacement' do
+    it 'should i was never with was i ever not' do
+      snippet = Snippet.new
+      snippet.set_text("I was not asking how the captain feels.")
+      snippet.translated.should == "Was I ever not askin how the captain feels."
     end
   end
 end

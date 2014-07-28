@@ -72,6 +72,7 @@ class Snippet
   def pretty_print(text)
     text = text.downcase.capitalize
     text = text.gsub(/[.?!]\s([a-z])/) {|s| s.upcase}
+    text = text.gsub(/\si\s/, " I ")
 
     text
   end
@@ -99,6 +100,9 @@ class Snippet
     text = text.gsub(/what\sthe\shell/, "what in the sphincter of hell")
     text = text.gsub(/what\sin\sthe\shell/, "what in the sphincter of hell")
 
+    # i was not -> was i ever not
+    text = text.gsub(/i\swas\snot/, "was i ever not")
+
     text
   end
 
@@ -107,9 +111,20 @@ class Snippet
     text = text.gsub(/very well/, "real good")
     text = text.gsub(/came/, "come")
     text = text.gsub(/saw/, "seen")
-    text = text.gsub(/has/, "done")
+    text = replace_has_state_with_done(text)
     text = text.gsub(/my/, "my own")
     text = text.gsub(/is\sgoing\sto/, "gone")
+
+    text
+  end
+
+  def replace_has_state_with_done(text)
+    states = ["been", "gotten", "happened", "occurred"]
+
+    states.each do |state|
+      regex = Regexp.new("has #{state}" )
+      text = text.gsub(regex, "done #{state}")
+    end
 
     text
   end
