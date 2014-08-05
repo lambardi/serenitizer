@@ -58,6 +58,9 @@ class Snippet
     # malformed verbs
     text = malform_verbs(text)
 
+    # my own self
+    text = add_my_own_self(text)
+
     # drop the 'g' on gerunds
     text = text.gsub(/(ing)(\s|$)/, 'in ')
 
@@ -112,7 +115,7 @@ class Snippet
     text = text.gsub(/came/, "come")
     text = text.gsub(/saw/, "seen")
     text = replace_has_state_with_done(text)
-    text = text.gsub(/my/, "my own")
+    text = text.gsub(/my(\s[o][w][n]){0}/, "my own")
     text = text.gsub(/is\sgoing\sto/, "gone")
 
     text
@@ -125,6 +128,13 @@ class Snippet
       regex = Regexp.new("has #{state}" )
       text = text.gsub(regex, "done #{state}")
     end
+
+    text
+  end
+
+  def add_my_own_self(text)
+    text = text.gsub(/(\.\s[i][a-z ']+)\./) {|s| s.slice(0, s.length-1) + ', my own self.'}
+    text = text.gsub(/(^[i][a-z ']+)\./) {|s| s.slice(0, s.length-1) + ', my own self.'}
 
     text
   end
